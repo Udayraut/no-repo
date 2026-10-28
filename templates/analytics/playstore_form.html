@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}Log Play Store Metric — Skyniya Growth OS{% endblock %}
+{% block page_title %}Log Play Store Metrics{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
+                <span class="fw-semibold">Google Play Store Acquisition Entry</span>
+                <a href="{% url 'analytics:playstore_list' %}" class="btn btn-sm btn-outline-secondary">Cancel</a>
+            </div>
+            <div class="card-body p-4">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Application Name <span class="text-danger">*</span></label>
+                            {{ form.app_name }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Package Name <span class="text-danger">*</span></label>
+                            {{ form.package_name }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Metric Date <span class="text-danger">*</span></label>
+                            {{ form.metric_date }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Source Classification <span class="text-danger">*</span></label>
+                            {{ form.source }}
+                            <div class="form-text">Choose 'Manual Entry' unless syncing directly from Play Developer API.</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Store Listing Visitors</label>
+                            {{ form.store_listing_visitors }}
+                            <div class="form-text">Unique users visiting your store product page.</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Store Listing Acquisitions (Installs)</label>
+                            {{ form.store_listing_acquisitions }}
+                            <div class="form-text">Direct installs converted from visitor impressions.</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Uninstalls</label>
+                            {{ form.uninstalls }}
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Active Installed Devices</label>
+                            {{ form.active_devices }}
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Average Store Rating (1.0 - 5.0)</label>
+                            {{ form.average_rating }}
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Campaign / ASO Testing Notes</label>
+                            {{ form.notes }}
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end gap-2 mt-4 pt-3 border-top">
+                        <a href="{% url 'analytics:playstore_list' %}" class="btn btn-outline-secondary">Back</a>
+                        <button type="submit" class="btn btn-primary px-4">Save Entry</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

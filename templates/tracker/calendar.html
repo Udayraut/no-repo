@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}Content Calendar — Skyniya Growth OS{% endblock %}
+{% block page_title %}Growth & Content Calendar{% endblock %}
+
+{% block content %}
+<div class="section-header">
+    <div>
+        <h2 class="mb-1">{{ month_name }} {{ year }}</h2>
+        <p class="text-secondary small mb-0">Scheduled releases, published social media posts, and production logs</p>
+    </div>
+    <div class="d-flex align-items-center gap-2">
+        <a href="?year={{ prev_year }}&month={{ prev_month }}" class="btn btn-outline-secondary btn-sm">
+            <i class="bi bi-chevron-left me-1"></i> Prev
+        </a>
+        <a href="{% url 'tracker:calendar' %}" class="btn btn-outline-secondary btn-sm">Today</a>
+        <a href="?year={{ next_year }}&month={{ next_month }}" class="btn btn-outline-secondary btn-sm">
+            Next <i class="bi bi-chevron-right ms-1"></i>
+        </a>
+        <a href="{% url 'tracker:post_create' %}" class="btn btn-primary btn-sm ms-2">
+            <i class="bi bi-plus-lg me-1"></i> Schedule Post
+        </a>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm p-3">
+    <!-- Day Header -->
+    <div class="calendar-grid">
+        <div class="calendar-header-cell">Sun</div>
+        <div class="calendar-header-cell">Mon</div>
+        <div class="calendar-header-cell">Tue</div>
+        <div class="calendar-header-cell">Wed</div>
+        <div class="calendar-header-cell">Thu</div>
+        <div class="calendar-header-cell">Fri</div>
+        <div class="calendar-header-cell">Sat</div>
+
+        <!-- Weeks & Days -->
+        {% for week in weeks %}
+            {% for day in week %}
+            <div class="calendar-cell {% if not day.is_current_month %}other-month{% endif %} {% if day.is_today %}today{% endif %}">
+                <div class="calendar-date d-flex justify-content-between align-items-center">
+                    <span>{{ day.day }}</span>
+                    {% if day.is_today %}
+                    <span class="badge bg-primary rounded-pill" style="font-size: 8px;">Today</span>
+                    {% endif %}
+                </div>
+                <div class="calendar-events">
+                    {% for ev in day.events %}
+                    <a href="{{ ev.url }}" class="calendar-event {% if ev.type == 'log' %}bg-secondary{% else %}bg-{{ ev.platform }}{% endif %}" title="{{ ev.title }}">
+                        {{ ev.title }}
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

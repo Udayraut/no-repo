@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %}Reports & Exports — Skyniya Growth OS{% endblock %}
+{% block page_title %}Reports & Data Exports{% endblock %}
+
+{% block content %}
+<div class="section-header">
+    <div>
+        <h2 class="mb-1">Reports & Data Export Center</h2>
+        <p class="text-secondary small mb-0">Generate spreadsheet and CSV exports for stakeholder reporting and business intelligence</p>
+    </div>
+</div>
+
+<div class="row g-4">
+    <!-- Social Posts Export Card -->
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body p-4 d-flex flex-column justify-content-between">
+                <div>
+                    <div class="stat-icon bg-light text-primary mb-3">
+                        <i class="bi bi-file-earmark-spreadsheet fs-4"></i>
+                    </div>
+                    <h4>Social Media Content</h4>
+                    <p class="text-secondary small">
+                        All drafted, scheduled, and published posts with latest engagement, view counts, and engagement rates.
+                    </p>
+                    <div class="badge bg-light text-dark border mb-3">{{ post_count }} records available</div>
+                </div>
+                <div class="d-flex flex-column gap-2 pt-3 border-top">
+                    <a href="{% url 'reports:export_posts_csv' %}" class="btn btn-outline-primary btn-sm">
+                        <i class="bi bi-filetype-csv me-1"></i> Download CSV
+                    </a>
+                    <a href="{% url 'reports:export_posts_excel' %}" class="btn btn-primary btn-sm">
+                        <i class="bi bi-file-earmark-excel me-1"></i> Download Excel (.xlsx)
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Play Store Export Card -->
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body p-4 d-flex flex-column justify-content-between">
+                <div>
+                    <div class="stat-icon bg-light text-success mb-3">
+                        <i class="bi bi-google-play fs-4"></i>
+                    </div>
+                    <h4>Play Store Metrics</h4>
+                    <p class="text-secondary small">
+                        Complete historical logs of store listing visitors, acquisitions, uninstalls, active devices, and ratings.
+                    </p>
+                    <div class="badge bg-light text-dark border mb-3">{{ playstore_count }} entries available</div>
+                </div>
+                <div class="d-flex flex-column gap-2 pt-3 border-top">
+                    <a href="{% url 'reports:export_playstore_csv' %}" class="btn btn-outline-primary btn-sm">
+                        <i class="bi bi-filetype-csv me-1"></i> Download CSV
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Daily Log Export Card -->
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body p-4 d-flex flex-column justify-content-between">
+                <div>
+                    <div class="stat-icon bg-light text-info mb-3">
+                        <i class="bi bi-journal-check fs-4"></i>
+                    </div>
+                    <h4>Daily Productivity Logs</h4>
+                    <p class="text-secondary small">
+                        Your production habits, focus areas, output volumes, dedicated hours, and key learnings log.
+                    </p>
+                    <div class="badge bg-light text-dark border mb-3">{{ daily_log_count }} daily entries</div>
+                </div>
+                <div class="d-flex flex-column gap-2 pt-3 border-top">
+                    <a href="{% url 'reports:export_daily_logs_csv' %}" class="btn btn-outline-primary btn-sm">
+                        <i class="bi bi-filetype-csv me-1"></i> Download CSV
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

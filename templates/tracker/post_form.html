@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if is_create %}New Post{% else %}Edit Post{% endif %} — Skyniya Growth OS{% endblock %}
+{% block page_title %}{% if is_create %}Create Content Item{% else %}Edit Content Item{% endif %}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-9">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
+                <span class="fw-semibold">{% if is_create %}Post Details & Scheduling{% else %}Edit "{{ post.title }}"{% endif %}</span>
+                <a href="{% url 'tracker:post_list' %}" class="btn btn-sm btn-outline-secondary">Cancel</a>
+            </div>
+            <div class="card-body p-4">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label class="form-label">Working Title / Headline <span class="text-danger">*</span></label>
+                            {{ form.title }}
+                            {% if form.title.errors %}<div class="text-danger small">{{ form.title.errors }}</div>{% endif %}
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Social Platform <span class="text-danger">*</span></label>
+                            {{ form.platform }}
+                            {% if form.platform.errors %}<div class="text-danger small">{{ form.platform.errors }}</div>{% endif %}
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Post Format</label>
+                            {{ form.post_type }}
+                            {% if form.post_type.errors %}<div class="text-danger small">{{ form.post_type.errors }}</div>{% endif %}
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Publishing Status <span class="text-danger">*</span></label>
+                            {{ form.status }}
+                            {% if form.status.errors %}<div class="text-danger small">{{ form.status.errors }}</div>{% endif %}
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label">Caption / Script / Thread Text <span class="text-danger">*</span></label>
+                            {{ form.caption }}
+                            {% if form.caption.errors %}<div class="text-danger small">{{ form.caption.errors }}</div>{% endif %}
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Scheduled Date & Time</label>
+                            {{ form.scheduled_at }}
+                            <div class="form-text">Set when you intend this post to go live.</div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Actual Published Date & Time</label>
+                            {{ form.published_at }}
+                            <div class="form-text">Fill in once post is live for historical accuracy.</div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Live Post URL</label>
+                            {{ form.post_url }}
+                            <div class="form-text">Direct public link to the published social post.</div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Tags / Focus Keywords</label>
+                            {{ form.tags }}
+                            <div class="form-text">Comma-separated keywords or hashtags.</div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-2 mt-4 pt-3 border-top">
+                        <a href="{% url 'tracker:post_list' %}" class="btn btn-outline-secondary">Back to List</a>
+                        <button type="submit" class="btn btn-primary px-4">
+                            {% if is_create %}Create Post{% else %}Save Changes{% endif %}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,46 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Environment variables
+.env
+
+# Database
+*.sqlite3
+db.sqlite3
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Static files (collected)
+staticfiles/
+
+# Media uploads
+media/
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+
+# Distribution
+dist/
+build/
+*.egg-info/
+
+# Logs
+*.log
+logs/

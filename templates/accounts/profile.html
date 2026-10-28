@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% block title %}Profile — Skyniya Growth OS{% endblock %}
+{% block page_title %}User Profile{% endblock %}
+
+{% block content %}
+<div class="row g-4">
+    <div class="col-lg-4">
+        <div class="card h-100">
+            <div class="card-body text-center d-flex flex-column align-items-center justify-content-center p-4">
+                <div class="profile-avatar-lg mb-3">
+                    {{ user.first_name|default:user.username|first|upper }}
+                </div>
+                <h4 class="mb-1">{{ user.get_full_name|default:user.username }}</h4>
+                <p class="text-secondary small mb-2">{{ profile.job_title|default:"Growth Lead" }}</p>
+                {% if profile.organization_name %}
+                <span class="badge bg-secondary mb-3">{{ profile.organization_name }}</span>
+                {% endif %}
+                <div class="d-flex gap-2">
+                    <a href="{% url 'accounts:settings' %}" class="btn btn-sm btn-outline-primary">
+                        <i class="bi bi-pencil me-1"></i> Edit Settings
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-8">
+        <div class="card mb-4">
+            <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
+                <span class="fw-semibold">Personal Information</span>
+                <span class="badge bg-success">Active Subscription</span>
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-sm-6">
+                        <div class="text-secondary small">Email Address</div>
+                        <div class="fw-medium">{{ user.email }}</div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="text-secondary small">Timezone</div>
+                        <div class="fw-medium">{{ profile.get_timezone_display }}</div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="text-secondary small">Website</div>
+                        <div>
+                            {% if profile.website %}
+                            <a href="{{ profile.website }}" target="_blank" rel="noopener noreferrer">{{ profile.website }}</a>
+                            {% else %}
+                            <span class="text-muted">Not specified</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="text-secondary small">Member Since</div>
+                        <div class="fw-medium">{{ user.date_joined|date:"M d, Y" }}</div>
+                    </div>
+                    <div class="col-12">
+                        <div class="text-secondary small">Bio</div>
+                        <p class="mt-1 mb-0">{{ profile.bio|default:"No bio added yet." }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header bg-transparent">
+                <span class="fw-semibold">Security & Access</span>
+            </div>
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="fw-medium">Google Authentication</div>
+                        <div class="text-secondary small">Connect Google Account for quick, zero-friction Single Sign-On</div>
+                    </div>
+                    <div>
+                        <a href="{% url 'socialaccount_connections' %}" class="btn btn-sm btn-outline-secondary">Manage Connections</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

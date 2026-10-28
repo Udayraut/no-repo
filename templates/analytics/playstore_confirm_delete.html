@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Confirm Delete Play Store Record — Skyniya Growth OS{% endblock %}
+{% block page_title %}Delete Play Store Metric{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card border-0 shadow-sm text-center">
+            <div class="card-body p-4">
+                <i class="bi bi-trash text-danger fs-1 mb-3"></i>
+                <h4>Delete Entry for {{ entry.metric_date|date:"M d, Y" }}?</h4>
+                <p class="text-secondary">
+                    You are removing the recorded Google Play Store metrics for <strong>{{ entry.app_name }}</strong>.
+                </p>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="d-flex justify-content-center gap-2 mt-4">
+                        <a href="{% url 'analytics:playstore_list' %}" class="btn btn-outline-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-danger">Confirm Delete</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

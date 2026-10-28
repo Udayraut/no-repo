@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if is_create %}Set Growth Goal{% else %}Update Goal{% endif %} — Skyniya Growth OS{% endblock %}
+{% block page_title %}{% if is_create %}Define Target Goal{% else %}Update Goal Progress{% endif %}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
+                <span class="fw-semibold">{% if is_create %}New Goal Target & Deadline{% else %}Update "{{ goal.title }}"{% endif %}</span>
+                <a href="{% url 'analytics:goal_list' %}" class="btn btn-sm btn-outline-secondary">Cancel</a>
+            </div>
+            <div class="card-body p-4">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label class="form-label">Goal Headline / Title <span class="text-danger">*</span></label>
+                            {{ form.title }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Metric Category <span class="text-danger">*</span></label>
+                            {{ form.metric_type }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Unit of Measure</label>
+                            {{ form.unit }}
+                            <div class="form-text">e.g. views, installs, %, followers</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Target Numerical Value <span class="text-danger">*</span></label>
+                            {{ form.target_value }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Current Observed Value</label>
+                            {{ form.current_value }}
+                            <div class="form-text">Update as you make progress towards the target.</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Start Date</label>
+                            {{ form.start_date }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Target Deadline <span class="text-danger">*</span></label>
+                            {{ form.deadline }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Goal Status</label>
+                            {{ form.status }}
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Notes & Execution Strategy</label>
+                            {{ form.notes }}
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end gap-2 mt-4 pt-3 border-top">
+                        <a href="{% url 'analytics:goal_list' %}" class="btn btn-outline-secondary">Back</a>
+                        <button type="submit" class="btn btn-primary px-4">
+                            {% if is_create %}Create Goal{% else %}Update Goal{% endif %}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

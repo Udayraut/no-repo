@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block title %}Daily Content Tracker — Skyniya Growth OS{% endblock %}
+{% block page_title %}Daily Content Log{% endblock %}
+
+{% block content %}
+<div class="section-header">
+    <div>
+        <h2 class="mb-1">Daily Content Tracker</h2>
+        <p class="text-secondary small mb-0">Record your daily focus, output metrics, hours spent, and performance learnings</p>
+    </div>
+</div>
+
+<div class="row g-4">
+    <!-- Log Entry Form -->
+    <div class="col-lg-5">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
+                <span class="fw-semibold">{% if today_log %}Update Today's Log{% else %}Log Today's Production{% endif %}</span>
+                <span class="badge bg-primary">{{ today|date:"M d, Y" }}</span>
+            </div>
+            <div class="card-body p-4">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label class="form-label">Log Date</label>
+                        {{ form.log_date }}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Primary Focus Area</label>
+                        {{ form.focus_area }}
+                        <div class="form-text">e.g. YouTube Video Scripting, TikTok Reels Batching, Newsletter</div>
+                    </div>
+                    <div class="row g-2 mb-3">
+                        <div class="col-6">
+                            <label class="form-label">Items Created</label>
+                            {{ form.content_items_created }}
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label">Hours Dedicated</label>
+                            {{ form.hours_spent }}
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Productivity Rating</label>
+                        {{ form.productivity_score }}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Key Growth Learnings & Takeaways</label>
+                        {{ form.key_learnings }}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">General Notes</label>
+                        {{ form.notes }}
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="bi bi-check2-circle me-1"></i> Save Daily Log
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Past Logs -->
+    <div class="col-lg-7">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-transparent">
+                <span class="fw-semibold">Recent Logs History (Last 30 Days)</span>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Focus Area</th>
+                            <th>Outputs</th>
+                            <th>Hours</th>
+                            <th>Rating</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for log in past_logs %}
+                        <tr>
+                            <td class="fw-medium">{{ log.log_date|date:"M d, Y" }}</td>
+                            <td>
+                                <div class="fw-medium">{{ log.focus_area }}</div>
+                                {% if log.key_learnings %}
+                                <div class="text-secondary small text-truncate" style="max-width: 250px;">
+                                    {{ log.key_learnings }}
+                                </div>
+                                {% endif %}
+                            </td>
+                            <td><span class="badge bg-light text-dark border">{{ log.content_items_created }} items</span></td>
+                            <td>{{ log.hours_spent }}h</td>
+                            <td>
+                                <span class="text-warning">
+                                    {% for i in "12345"|make_list %}
+                                        {% if forloop.counter <= log.productivity_score %}★{% else %}☆{% endif %}
+                                    {% endfor %}
+                                </span>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" class="text-center py-5 text-secondary">
+                                <i class="bi bi-journal-text fs-3 d-block mb-2 text-muted"></i>
+                                No daily content logs recorded yet. Start tracking your productivity today!
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,76 @@
+<!-- Sidebar Navigation -->
+<nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <a href="{% url 'dashboard:index' %}" class="sidebar-brand">
+            <i class="bi bi-rocket-takeoff-fill"></i>
+            <span>Skyniya</span>
+        </a>
+        <button class="btn btn-link sidebar-close d-lg-none" id="sidebarClose">
+            <i class="bi bi-x-lg"></i>
+        </button>
+    </div>
+
+    <div class="sidebar-nav">
+        <div class="nav-section">
+            <span class="nav-section-title">Overview</span>
+            <a href="{% url 'dashboard:index' %}" class="nav-item {% if request.resolver_match.app_name == 'dashboard' %}active{% endif %}">
+                <i class="bi bi-grid-1x2"></i>
+                <span>Dashboard</span>
+            </a>
+        </div>
+
+        <div class="nav-section">
+            <span class="nav-section-title">Content</span>
+            <a href="{% url 'tracker:post_list' %}" class="nav-item {% if request.resolver_match.url_name == 'post_list' or request.resolver_match.url_name == 'post_create' or request.resolver_match.url_name == 'post_detail' or request.resolver_match.url_name == 'post_update' %}active{% endif %}">
+                <i class="bi bi-pencil-square"></i>
+                <span>Posts</span>
+            </a>
+            <a href="{% url 'tracker:daily_log' %}" class="nav-item {% if request.resolver_match.url_name == 'daily_log' %}active{% endif %}">
+                <i class="bi bi-journal-check"></i>
+                <span>Daily Log</span>
+            </a>
+            <a href="{% url 'tracker:calendar' %}" class="nav-item {% if request.resolver_match.url_name == 'calendar' %}active{% endif %}">
+                <i class="bi bi-calendar3"></i>
+                <span>Calendar</span>
+            </a>
+        </div>
+
+        <div class="nav-section">
+            <span class="nav-section-title">Analytics</span>
+            <a href="{% url 'analytics:overview' %}" class="nav-item {% if request.resolver_match.url_name == 'overview' or request.resolver_match.url_name == 'platform_detail' %}active{% endif %}">
+                <i class="bi bi-bar-chart-line"></i>
+                <span>Analytics</span>
+            </a>
+            <a href="{% url 'analytics:playstore_list' %}" class="nav-item {% if 'playstore' in request.resolver_match.url_name %}active{% endif %}">
+                <i class="bi bi-google-play"></i>
+                <span>Play Store</span>
+            </a>
+            <a href="{% url 'analytics:goal_list' %}" class="nav-item {% if 'goal' in request.resolver_match.url_name %}active{% endif %}">
+                <i class="bi bi-bullseye"></i>
+                <span>Goals</span>
+            </a>
+        </div>
+
+        <div class="nav-section">
+            <span class="nav-section-title">Insights</span>
+            <a href="{% url 'reports:index' %}" class="nav-item {% if request.resolver_match.app_name == 'reports' %}active{% endif %}">
+                <i class="bi bi-file-earmark-bar-graph"></i>
+                <span>Reports</span>
+            </a>
+            <a href="{% url 'notifications:list' %}" class="nav-item {% if request.resolver_match.app_name == 'notifications' %}active{% endif %}">
+                <i class="bi bi-bell"></i>
+                <span>Notifications</span>
+                {% if unread_notifications_count > 0 %}
+                <span class="badge-count">{{ unread_notifications_count }}</span>
+                {% endif %}
+            </a>
+        </div>
+    </div>
+
+    <div class="sidebar-footer">
+        <a href="{% url 'accounts:settings' %}" class="nav-item {% if request.resolver_match.url_name == 'settings' %}active{% endif %}">
+            <i class="bi bi-gear"></i>
+            <span>Settings</span>
+        </a>
+    </div>
+</nav>

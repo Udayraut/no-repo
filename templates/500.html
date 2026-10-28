@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Server Error — Skyniya Growth OS{% endblock %}
+
+{% block content %}
+<div class="error-page">
+    <h1 class="text-danger">500</h1>
+    <h3 class="fw-bold mb-2">Unexpected Application Error</h3>
+    <p class="text-secondary mb-4">Our systems encountered an internal error. Please try again shortly or contact support.</p>
+    <a href="{% url 'dashboard:index' %}" class="btn btn-primary">Return to Dashboard</a>
+</div>
+{% endblock %}

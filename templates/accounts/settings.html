@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+{% block title %}Settings — Skyniya Growth OS{% endblock %}
+{% block page_title %}Account Settings{% endblock %}
+
+{% block content %}
+<div class="row g-4">
+    <div class="col-lg-3">
+        <div class="list-group list-group-flush rounded-card border shadow-sm">
+            <a class="list-group-item list-group-item-action active fw-medium py-3" href="#general" data-bs-toggle="list">
+                <i class="bi bi-person me-2"></i> Account & Profile
+            </a>
+            <a class="list-group-item list-group-item-action fw-medium py-3" href="#notifications" data-bs-toggle="list">
+                <i class="bi bi-bell me-2"></i> Notifications
+            </a>
+            <a class="list-group-item list-group-item-action fw-medium py-3" href="#system" data-bs-toggle="list">
+                <i class="bi bi-shield-check me-2"></i> System & Integration
+            </a>
+        </div>
+    </div>
+
+    <div class="col-lg-9">
+        <div class="tab-content">
+            <!-- General Tab -->
+            <div class="tab-pane fade show active" id="general">
+                <div class="card mb-4">
+                    <div class="card-header bg-transparent">
+                        <span class="fw-semibold">Personal Account Details</span>
+                    </div>
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="account">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">First Name</label>
+                                    {{ account_form.first_name }}
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Last Name</label>
+                                    {{ account_form.last_name }}
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Email Address</label>
+                                    {{ account_form.email }}
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <button type="submit" class="btn btn-primary">Save Account Details</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header bg-transparent">
+                        <span class="fw-semibold">Growth Profile Metadata</span>
+                    </div>
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="profile">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Company / Brand Organization</label>
+                                    {{ profile_form.organization_name }}
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Role or Job Title</label>
+                                    {{ profile_form.job_title }}
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Preferred Timezone</label>
+                                    {{ profile_form.timezone }}
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Website</label>
+                                    {{ profile_form.website }}
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Bio / Brand Summary</label>
+                                    {{ profile_form.bio }}
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <button type="submit" class="btn btn-primary">Save Profile Info</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notifications Tab -->
+            <div class="tab-pane fade" id="notifications">
+                <div class="card">
+                    <div class="card-header bg-transparent">
+                        <span class="fw-semibold">Notification Preferences</span>
+                    </div>
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="notifications">
+                            <div class="d-flex flex-column gap-3">
+                                <div class="form-check form-switch">
+                                    {{ notif_form.email_notifications }}
+                                    <label class="form-check-label fw-medium ms-2" for="{{ notif_form.email_notifications.id_for_label }}">
+                                        Email Notifications
+                                    </label>
+                                    <div class="text-secondary small ms-2">Receive email alerts when milestones or metric thresholds are met.</div>
+                                </div>
+                                <div class="form-check form-switch">
+                                    {{ notif_form.weekly_digest }}
+                                    <label class="form-check-label fw-medium ms-2" for="{{ notif_form.weekly_digest.id_for_label }}">
+                                        Weekly Performance Digest
+                                    </label>
+                                    <div class="text-secondary small ms-2">Receive automated summary reports every Monday morning.</div>
+                                </div>
+                                <div class="form-check form-switch">
+                                    {{ notif_form.notify_on_deadline }}
+                                    <label class="form-check-label fw-medium ms-2" for="{{ notif_form.notify_on_deadline.id_for_label }}">
+                                        Deadline Reminders
+                                    </label>
+                                    <div class="text-secondary small ms-2">Notify 24 hours prior to configured goal deadlines.</div>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <button type="submit" class="btn btn-primary">Save Preferences</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Tab -->
+            <div class="tab-pane fade" id="system">
+                <div class="card mb-4">
+                    <div class="card-header bg-transparent">
+                        <span class="fw-semibold">Google OAuth & Authentication Status</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-secondary small">
+                            Skyniya Growth OS utilizes Google OAuth 2.0 via standard, maintained Django Allauth libraries.
+                            No external API keys or tokens are stored in plain text.
+                        </p>
+                        <div class="p-3 border rounded-card bg-light d-flex align-items-center justify-content-between">
+                            <div>
+                                <div class="fw-medium">Google Account Link</div>
+                                <div class="small text-muted">Status: Configured for login & identity confirmation</div>
+                            </div>
+                            <span class="badge bg-success">Active</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header bg-transparent text-danger">
+                        <span class="fw-semibold">Data & Privacy</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-secondary small">
+                            Export all your metrics, logs, and analytics records in standard CSV or Excel formats anytime from the Reports section.
+                        </p>
+                        <a href="{% url 'reports:index' %}" class="btn btn-outline-secondary btn-sm">Go to Reports & Exports</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
