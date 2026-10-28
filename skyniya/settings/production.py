@@ -1,5 +1,6 @@
 
 import os
+from .base import *
 
 # Logging — Render-compatible console logging
 LOGGING = {
