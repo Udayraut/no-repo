@@ -76,3 +76,5 @@ DEFAULT_FROM_EMAIL = os.environ.get(
 # Allauth
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
+
+ALLOWED_HOSTS = ['no-repo.onrender.com', 'localhost', '127.0.0.1']
