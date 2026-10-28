@@ -155,45 +155,37 @@ MESSAGE_TAGS = {
 # Pagination
 DEFAULT_PAGE_SIZE = 10
 
-# Logging
+
+# Logging — Render-compatible console logging
 LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'verbose': {
-            'format': '{levelname} {asctime} {module} {message}',
-            'style': '{',
-        },
-        'simple': {
-            'format': '{levelname} {message}',
-            'style': '{',
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "simple": {
+            "format": "{levelname} {message}",
+            "style": "{",
         },
     },
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-            'formatter': 'simple',
-        },
-        'file': {
-            'class': 'logging.FileHandler',
-            'filename': BASE_DIR / 'logs' / 'skyniya.log',
-            'formatter': 'verbose',
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "simple",
         },
     },
-    'root': {
-        'handlers': ['console'],
-        'level': 'INFO',
+    "root": {
+        "handlers": ["console"],
+        "level": "INFO",
     },
-    'loggers': {
-        'django': {
-            'handlers': ['console'],
-            'level': 'INFO',
-            'propagate': False,
+    "loggers": {
+        "django": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": False,
         },
-        'skyniya': {
-            'handlers': ['console', 'file'],
-            'level': 'DEBUG',
-            'propagate': False,
+        "skyniya": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": False,
         },
     },
 }
