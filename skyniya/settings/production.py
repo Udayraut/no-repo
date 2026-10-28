@@ -1,6 +1,7 @@
 
 import os
 from .base import *
+import dj_database_url
 
 # Logging — Render-compatible console logging
 LOGGING = {
@@ -78,3 +79,16 @@ ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
 
 ALLOWED_HOSTS = ['no-repo.onrender.com', 'localhost', '127.0.0.1']
+
+DATABASE_URL = os.environ.get("DATABASE_URL")
+
+if not DATABASE_URL:
+    raise RuntimeError("DATABASE_URL is missing from environment variables.")
+
+DATABASES = {
+    "default": dj_database_url.parse(
+        DATABASE_URL,
+        conn_max_age=600,
+        ssl_require=True,
+    )
+}

@@ -189,3 +189,9 @@ LOGGING = {
         },
     },
 }
+
+ALLOWED_HOSTS = [
+    "no-repo.onrender.com",
+    "localhost",
+    "127.0.0.1",
+]
